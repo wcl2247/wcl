@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>登录页面</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #5b86e5 0%, #36d1dc 100%);
+      color: #333;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      padding: 32px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
+    }
+
+    .login-card h1 {
+      margin-bottom: 24px;
+      font-size: 28px;
+      text-align: center;
+      color: #1f2a48;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #4a5568;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid #d2d6dc;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus {
+      border-color: #5b86e5;
+      box-shadow: 0 0 0 4px rgba(91, 134, 229, 0.15);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-size: 14px;
+      color: #4a5568;
+    }
+
+    .actions a {
+      color: #5b86e5;
+      text-decoration: none;
+    }
+
+    .actions a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px 0;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #5b86e5 0%, #36d1dc 100%);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(55, 122, 255, 0.2);
+    }
+
+    .message {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .message.success {
+      background: #daf7e5;
+      color: #21684a;
+      display: block;
+    }
+
+    .message.error {
+      background: #fde8e8;
+      color: #922b21;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <main class="login-card">
+    <h1>账号登录</h1>
+    <form id="loginForm" autocomplete="off">
+      <div class="field">
+        <label for="username">用户名</label>
+        <input id="username" name="username" type="text" placeholder="请输入用户名" required />
+      </div>
+      <div class="field">
+        <label for="password">密码</label>
+        <input id="password" name="password" type="password" placeholder="请输入密码" required minlength="6" />
+      </div>
+      <div class="actions">
+        <label><input id="remember" name="remember" type="checkbox" /> 记住账号</label>
+        <a href="#">忘记密码?</a>
+      </div>
+      <button type="submit">登录</button>
+      <div id="message" class="message"></div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const username = form.username.value.trim();
+      const password = form.password.value;
+
+      if (!username || password.length < 6) {
+        showMessage('用户名不能为空，且密码至少 6 位。', 'error');
+        return;
+      }
+
+      // 模拟登录验证
+      if (username === 'admin' && password === '123456') {
+        showMessage('登录成功！欢迎，' + username + '。', 'success');
+      } else {
+        showMessage('用户名或密码错误，请重新输入。', 'error');
+      }
+    });
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = `message ${type}`;
+    }
+  </script>
+</body>
+</html>
